@@ -1,10 +1,10 @@
-﻿@model IEnumerable<DesafioFPF.WebApp.Banco.Entities.Rule>
+﻿@model IEnumerable<DesafioFPF.WebApp.Banco.Entities.Employee>
 
 @{
-    ViewData["Title"] = "Departamento";
+    ViewData["Title"] = "Funcionários";
 }
 
-<h1>Departamento</h1>
+<h1>Funcionários</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -14,6 +14,9 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ModifiedAt)
@@ -31,13 +34,16 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ModifiedAt)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Active)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.Id }) |
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new {  id=item.Id })
             </td>
         </tr>

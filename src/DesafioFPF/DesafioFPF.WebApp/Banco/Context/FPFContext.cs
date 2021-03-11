@@ -18,6 +18,7 @@ namespace DesafioFPF.WebApp.Banco.Context
         {
         }
 
+        public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Rule> Rules { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -33,9 +34,9 @@ namespace DesafioFPF.WebApp.Banco.Context
         {
             modelBuilder.HasAnnotation("Relational:Collation", "USING_NLS_COMP");
 
-            modelBuilder.Entity<Rule>(entity =>
+            modelBuilder.Entity<Employee>(entity =>
             {
-                entity.ToTable("RULE");
+                entity.ToTable("EMPLOYEE");
 
                 entity.Property(e => e.Id)
                     .HasColumnType("NUMBER(38)")
@@ -51,12 +52,59 @@ namespace DesafioFPF.WebApp.Banco.Context
                     .HasPrecision(6)
                     .HasColumnName("CREATED_AT");
 
+                entity.Property(e => e.Gender)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false)
+                    .HasColumnName("GENDER");
+
+                entity.Property(e => e.IdRule)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("ID_RULE");
+
                 entity.Property(e => e.ModifiedAt)
                     .HasPrecision(6)
                     .HasColumnName("MODIFIED_AT");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
+                    .HasMaxLength(104)
+                    .IsUnicode(false)
+                    .HasColumnName("NAME");
+
+                entity.Property(e => e.Salary)
+                    .HasColumnType("NUMBER(10,2)")
+                    .HasColumnName("SALARY");
+
+                entity.HasOne(d => d.IdRuleNavigation)
+                    .WithMany(p => p.Employees)
+                    .HasForeignKey(d => d.IdRule)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("RULE_FK");
+            });
+
+            modelBuilder.Entity<Rule>(entity =>
+            {
+                entity.ToTable("RULE");
+
+                entity.Property(e => e.Id)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.Active)
+                    .HasMaxLength(1)
+                    .IsUnicode(false)
+                    .HasColumnName("ACTIVE");
+
+                entity.Property(e => e.CreatedAt)
+                    .HasPrecision(6)
+                    .HasColumnName("CREATED_AT");
+
+                entity.Property(e => e.ModifiedAt)
+                    .HasPrecision(6)
+                    .HasColumnName("MODIFIED_AT");
+
+                entity.Property(e => e.Name)
                     .HasMaxLength(54)
                     .IsUnicode(false)
                     .HasColumnName("NAME");

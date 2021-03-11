@@ -1,10 +1,7 @@
-﻿
-using DesafioFPF.WebApp.Banco.Context;
+﻿using DesafioFPF.WebApp.Banco.Context;
 using DesafioFPF.WebApp.Banco.Entities;
 using DesafioFPF.WebApp.Interface;
-using DesafioFPF.WebApp.Models;
 using Microsoft.Extensions.Configuration;
-using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,45 +9,45 @@ using System.Threading.Tasks;
 
 namespace DesafioFPF.WebApp.Services
 {
-    public class DepartamentoService : IDepartamentoService
+    public class FuncionarioService : IFuncionarioService
     {
         private readonly string _connectionString;
-        public DepartamentoService(IConfiguration _configuratio)
+        public FuncionarioService(IConfiguration _configuratio)
         {
             _connectionString = _configuratio.GetConnectionString("OracleDBConnection");
         }
 
-        public IEnumerable<Rule> GetAllDepartamento()
+        public IEnumerable<Employee> GetAllFuncionario()
         {
             FPFContext contexto = new FPFContext();
-            return contexto.Rules;
+            return contexto.Employees;
         }
 
-        public Rule GetDepartamentoById(int deptoId)
+        public Employee GetFuncionarioById(int deptoId)
         {
             FPFContext contexto = new FPFContext();
-            return contexto.Rules.Where(o => o.Id == deptoId).FirstOrDefault();
+            return contexto.Employees.Where(o => o.Id == deptoId).FirstOrDefault();
         }
 
-        public void AddDepartamento(Rule depto)
+        public void AddFuncionario(Employee depto)
         {
             FPFContext contexto = new FPFContext();
-            contexto.Rules.Add(depto);
+            contexto.Employees.Add(depto);
             contexto.SaveChanges();
         }
 
-        public void EditDepartamento(Rule depto)
+        public void EditFuncionario(Employee depto)
         {
             FPFContext contexto = new FPFContext();
             contexto.Entry(depto).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             contexto.SaveChanges();
         }
 
-        public void DeleteDepartamento(Rule depto)
+        public void DeleteFuncionario(Employee depto)
         {
             FPFContext contexto = new FPFContext();
             contexto.Entry(depto).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            contexto.Rules.Remove(depto);
+            contexto.Employees.Remove(depto);
             contexto.SaveChanges();
         }
     }
