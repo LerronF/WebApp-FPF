@@ -32,6 +32,14 @@ namespace DesafioFPF.WebApp.Services
         public void AddFuncionario(Employee depto)
         {
             FPFContext contexto = new FPFContext();
+
+            var cont = GetAllFuncionario().Count();
+
+            depto.Id = cont + 1;
+            depto.CreatedAt = DateTime.Now;
+            depto.ModifiedAt = DateTime.MinValue;
+            depto.Salary = Convert.ToInt32(depto.Salary);
+
             contexto.Employees.Add(depto);
             contexto.SaveChanges();
         }
@@ -39,6 +47,7 @@ namespace DesafioFPF.WebApp.Services
         public void EditFuncionario(Employee depto)
         {
             FPFContext contexto = new FPFContext();
+            depto.ModifiedAt = DateTime.Now;
             contexto.Entry(depto).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             contexto.SaveChanges();
         }

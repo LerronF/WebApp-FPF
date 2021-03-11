@@ -35,6 +35,13 @@ namespace DesafioFPF.WebApp.Services
         public void AddDepartamento(Rule depto)
         {
             FPFContext contexto = new FPFContext();
+
+            var cont = GetAllDepartamento().Count();
+
+            depto.Id = cont + 1;
+            depto.CreatedAt = DateTime.Now;
+            depto.ModifiedAt = DateTime.MinValue;
+
             contexto.Rules.Add(depto);
             contexto.SaveChanges();
         }
@@ -42,6 +49,7 @@ namespace DesafioFPF.WebApp.Services
         public void EditDepartamento(Rule depto)
         {
             FPFContext contexto = new FPFContext();
+            depto.ModifiedAt = DateTime.Now;
             contexto.Entry(depto).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             contexto.SaveChanges();
         }
