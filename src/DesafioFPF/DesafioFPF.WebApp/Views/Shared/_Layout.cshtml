@@ -18,34 +18,10 @@
             </li>
             <a style="color:aliceblue;font-size:30px; padding-left:20px; padding-right:30px;">Relatórios</a>
             <li class="nav-item" style="margin-top: -26px; padding-left: 10px;">
-                <a class="nav-link" style="color:aliceblue" href="/">Total de Salários</a>
+                <a class="nav-link" style="color:aliceblue" href="/Home">Total de Salários</a>
             </li>
         </div>
-        <div class="flex-column" style="margin-left: initial">
-            <header>
-                <nav style="margin:initial" ; class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                    <div class="container">
-                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DesafioFPF.WebApp</a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                            <ul class="navbar-nav flex-grow-1">
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Departamento" asp-action="Index">Departamento</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Funcionario" asp-action="Index">Funcionario</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Funcionario" asp-action="Index">Funcionario</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </header>
+        <div class="flex-column" style="margin-left: 5%;margin-top: 5%;">
             <div style="width: 100%">
                 <main role="main" class="pb-3">
                     @RenderBody()
@@ -62,6 +38,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
-<script src="~/Scripts/Highcharts-4.0.1/js/highcharts.js"></script>
+    <script src="~/Scripts/Highcharts-4.0.1/js/highcharts.js"></script>
 </body>
 </html>
