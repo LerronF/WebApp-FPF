@@ -1,4 +1,5 @@
-﻿using DesafioFPF.WebApp.Models;
+﻿using DesafioFPF.WebApp.Banco.Entities;
+using DesafioFPF.WebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +9,10 @@ namespace DesafioFPF.WebApp.Interface
 {
     public interface IDepartamentoService
     {
-        IEnumerable<Departamento> GetAllDepartamento();
-        Departamento GetDepartamentoById(int deptoId);
-        void AddDepartamento(Departamento depto);
-        void EditDepartamento(Departamento depto);
-        void DeleteDepartamento(Departamento depto);
+        IEnumerable<Rule> GetAllDepartamento();
+        Rule GetDepartamentoById(int deptoId);
+        void AddDepartamento(Rule depto);
+        void EditDepartamento(Rule depto);
+        void DeleteDepartamento(Rule depto);
     }
 }

@@ -1,4 +1,5 @@
-﻿using DesafioFPF.WebApp.Interface;
+﻿using DesafioFPF.WebApp.Banco.Entities;
+using DesafioFPF.WebApp.Interface;
 using DesafioFPF.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,7 +20,7 @@ namespace DesafioFPF.WebApp.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Departamento> depto = departamentoService.GetAllDepartamento();
+            IEnumerable<Rule> depto = departamentoService.GetAllDepartamento();
 
             return View(depto);
         }
@@ -30,7 +31,7 @@ namespace DesafioFPF.WebApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Departamento depto)
+        public ActionResult Create(Rule depto)
         {
             departamentoService.AddDepartamento(depto);
             return RedirectToAction(nameof(Index));
@@ -38,12 +39,12 @@ namespace DesafioFPF.WebApp.Controllers
 
         public IActionResult Edit(int id)
         {
-            Departamento depto = departamentoService.GetDepartamentoById(id);
+            Rule depto = departamentoService.GetDepartamentoById(id);
             return View(depto);
         }
 
         [HttpPost]
-        public ActionResult Edit(Departamento depto)
+        public ActionResult Edit(Rule depto)
         {
             departamentoService.EditDepartamento(depto);
             return RedirectToAction(nameof(Index));
@@ -51,12 +52,12 @@ namespace DesafioFPF.WebApp.Controllers
 
         public IActionResult Delete(int id)
         {
-            Departamento depto = departamentoService.GetDepartamentoById(id);
+            Rule depto = departamentoService.GetDepartamentoById(id);
             return View(depto);
         }
 
         [HttpPost]
-        public ActionResult Delete(Departamento depto)
+        public ActionResult Delete(Rule depto)
         {
             departamentoService.DeleteDepartamento(depto);
             return RedirectToAction(nameof(Index));
