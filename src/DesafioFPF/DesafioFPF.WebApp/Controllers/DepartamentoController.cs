@@ -18,9 +18,14 @@ namespace DesafioFPF.WebApp.Controllers
             departamentoService = _departamentoService;
         }
 
-        public IActionResult Index()
+        public ViewResult Index(string searchString)
         {
             IEnumerable<Rule> depto = departamentoService.GetAllDepartamento();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                depto = depto.Where(o => o.Name.ToUpper().Contains(searchString.ToUpper()));
+            } 
 
             return View(depto);
         }

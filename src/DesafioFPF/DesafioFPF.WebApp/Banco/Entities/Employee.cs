@@ -16,6 +16,6 @@ namespace DesafioFPF.WebApp.Banco.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
 
-        public virtual Rule IdRuleNavigation { get; set; }
+        public virtual Rule IdNavigation { get; set; }
     }
 }

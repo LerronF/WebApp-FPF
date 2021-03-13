@@ -48,6 +48,7 @@ namespace DesafioFPF.WebApp.Services
         {
             FPFContext contexto = new FPFContext();
             depto.ModifiedAt = DateTime.Now;
+            depto.CreatedAt = depto.CreatedAt;
             contexto.Entry(depto).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             contexto.SaveChanges();
         }

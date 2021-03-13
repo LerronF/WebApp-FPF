@@ -73,12 +73,12 @@ namespace DesafioFPF.WebApp.Banco.Context
                     .HasColumnName("NAME");
 
                 entity.Property(e => e.Salary)
-                    .HasColumnType("NUMBER(10,2)")
+                    .HasColumnType("NUMBER(10,4)")
                     .HasColumnName("SALARY");
 
-                entity.HasOne(d => d.IdRuleNavigation)
-                    .WithMany(p => p.Employees)
-                    .HasForeignKey(d => d.IdRule)
+                entity.HasOne(d => d.IdNavigation)
+                    .WithOne(p => p.Employee)
+                    .HasForeignKey<Employee>(d => d.Id)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("RULE_FK");
             });
