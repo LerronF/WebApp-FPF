@@ -11,22 +11,31 @@ namespace DesafioFPF.WebApp.Controllers
     public class FuncionarioController : Controller
     {
         IFuncionarioService FuncionarioService;
+        IDepartamentoService departamentoService;
 
-        public FuncionarioController(IFuncionarioService _FuncionarioService)
+        public FuncionarioController(IFuncionarioService _FuncionarioService, IDepartamentoService _departamentoService)
         {
             FuncionarioService = _FuncionarioService;
+            departamentoService = _departamentoService;
         }
 
-        public IActionResult Index()
+        public ViewResult Index(string searchString)
         {
             IEnumerable<Employee> depto = FuncionarioService.GetAllFuncionario();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                depto = depto.Where(o => o.Name.ToUpper().Contains(searchString.ToUpper()));
+            }
 
             return View(depto);
         }
 
         public IActionResult Create()
         {
-            return View();
+            Employee func = new Employee();
+            CarregarListasComplementares(func);
+            return View(func);
         }
 
         [HttpPost]
@@ -39,6 +48,7 @@ namespace DesafioFPF.WebApp.Controllers
         public IActionResult Edit(int id)
         {
             Employee depto = FuncionarioService.GetFuncionarioById(id);
+            CarregarListasComplementares(depto);
             return View(depto);
         }
 
@@ -60,6 +70,13 @@ namespace DesafioFPF.WebApp.Controllers
         {
             FuncionarioService.DeleteFuncionario(depto);
             return RedirectToAction(nameof(Index));
+        }
+
+        private void CarregarListasComplementares(Employee itemViewModel)
+        {
+            List<Rule> depto = departamentoService.CarregaDepartamento();
+
+            itemViewModel.Departamento = depto;
         }
     }
 }

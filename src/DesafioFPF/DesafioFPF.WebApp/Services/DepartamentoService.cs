@@ -26,6 +26,12 @@ namespace DesafioFPF.WebApp.Services
             return contexto.Rules;
         }
 
+        public List<Rule> CarregaDepartamento()
+        {
+            FPFContext contexto = new FPFContext();
+            return contexto.Rules.ToList();
+        }
+
         public Rule GetDepartamentoById(int deptoId)
         {
             FPFContext contexto = new FPFContext();

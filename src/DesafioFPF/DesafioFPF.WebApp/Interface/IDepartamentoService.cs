@@ -14,5 +14,7 @@ namespace DesafioFPF.WebApp.Interface
         void AddDepartamento(Rule depto);
         void EditDepartamento(Rule depto);
         void DeleteDepartamento(Rule depto);
+
+        List<Rule> CarregaDepartamento();
     }
 }
