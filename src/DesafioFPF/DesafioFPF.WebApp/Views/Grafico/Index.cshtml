@@ -1,77 +1,65 @@
-﻿@model IEnumerable<DesafioFPF.WebApp.Banco.Entities.Employee>
-
-@{
-    ViewData["Title"] = "Index";
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript"
+        src="https://www.gstatic.com/charts/loader.js"></script>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            url: '@Url.Action("Data","Grafico")',
+            success: function (result) {
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(function () {
+                    drawChart(result);
+                });
+            }
+        });
+
+        function drawChart(result) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Nome');
+            data.addColumn('number', 'Salario');
+            var dataArray = [];
+            $.each(result, function (i, obj) {
+                dataArray.push([obj.nome, obj.salario]);
+            });
+
+
+            data.addRows(dataArray);
+
+            //var pierchart_options = {
+            //    title: 'Relação de pesquisas Confirmadas e Canceladas',
+            //    width: 500,
+            //    height: 400,
+            //};
+            //var pierchart = new google.visualization.PieChart(document.getElementById('pierchart_div'));
+            //pierchart.draw(data, pierchart_options);
+
+            var barchart_options = {
+                title: '',
+                width: 500,
+                height: 400,
+                legend: 'none'
+            };
+            var barchart = new google.visualization.ColumnChart(document.getElementById('barchart_div'));
+            barchart.draw(data, barchart_options);
+        }
+    });
+</script>
+
+<div class="container">
+    <h1 class="page-header">Total de salários por departamento</h1>
+    <table class="columns">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdRule)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Salary)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Active)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedAt)
-            </th>
-            <th></th>
+            <td><div id="pierchart_div" style="border: 1px solid #ccc"></div></td>
+            <td><div id="barchart_div" style="border: 1px solid #ccc"></div></td>
         </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdRule)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Salary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Active)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedAt)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    </table>
+</div>

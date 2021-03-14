@@ -27,12 +27,14 @@ namespace DesafioFPF.WebApp
         {
             services.AddTransient<IDepartamentoService, DepartamentoService>();
             services.AddTransient<IFuncionarioService, FuncionarioService>();
+            services.AddTransient<IGraficoService, GraficoService>();
             services.AddSingleton<IConfiguration>(Configuration);
 
             services.AddMvc().AddRazorPagesOptions(options =>
             {
                 options.Conventions.AddPageRoute("/Departamento/Index","");
                 options.Conventions.AddPageRoute("/Funcionario/Index", "");
+                options.Conventions.AddPageRoute("/Grafico/Index", "");
             });
         }
 

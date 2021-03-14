@@ -10,13 +10,40 @@ namespace DesafioFPF.WebApp.Controllers
 {
     public class GraficoController : Controller
     {
-        IGraficoService GraficoService;
+        IGraficoService graficoService;
 
-        public IActionResult Index()
+        public GraficoController(IGraficoService _graficoService)
         {
-            IEnumerable<Employee> depto = GraficoService.GetGrafico();
+            graficoService = _graficoService;
+        }
+        public ActionResult Index()
+        {
+            return View();
+        }
 
-            return View(depto);
+        public JsonResult Data()
+        {
+            List<Employee> depto = graficoService.GetGrafico();
+
+            List<object> obj = new List<object>();
+            try
+            {                
+                foreach (var item in depto)
+                {
+                    obj.Add(new
+                    {
+                        Nome = item.Name,
+                        Salario = item.Salary
+                    });
+                }
+
+                ViewBag.Listagem = depto;
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return Json(obj);
         }
     }
 }

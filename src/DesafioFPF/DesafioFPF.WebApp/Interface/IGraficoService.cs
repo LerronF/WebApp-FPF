@@ -8,6 +8,6 @@ namespace DesafioFPF.WebApp.Interface
 {
     public interface IGraficoService
     {
-        IEnumerable<Employee> GetGrafico();
+        List<Employee> GetGrafico();
     }
 }

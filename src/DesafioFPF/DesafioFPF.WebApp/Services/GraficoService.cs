@@ -16,7 +16,7 @@ namespace DesafioFPF.WebApp.Services
         {
             _connectionString = _configuratio.GetConnectionString("OracleDBConnection");
         }
-        public IEnumerable<Employee> GetGrafico()
+        public List<Employee> GetGrafico()
         {
             List<Employee> deptoList = new List<Employee>();
 
@@ -28,14 +28,14 @@ namespace DesafioFPF.WebApp.Services
                     {
                         con.Open();
                         cmd.Connection = con;
-                        cmd.CommandText = "SELECT SUM(EMPLOYEE.SALARY) SALARIO, RULE.NAME DEPTO  FROM EMPLOYEE, RULE GROUP BY RULE.NAME";
+                        cmd.CommandText = "SELECT Sum(EMPLOYEE.SALARY) SALARIO, RULE.NAME DEPTO  FROM EMPLOYEE, RULE WHERE EMPLOYEE.id_rule = rule.id group by RULE.NAME";
                         OracleDataReader rdr = cmd.ExecuteReader();
                         while (rdr.Read())
                         {
                             Employee depto = new Employee
                             {
-                                Salary = Convert.ToInt32(rdr["SALARY"]),
-                                Name = rdr["NAME"].ToString(),
+                                Salary = Convert.ToInt32(rdr["SALARIO"]),
+                                Name = rdr["DEPTO"].ToString(),
                             };
                             deptoList.Add(depto);
                         }
